@@ -1,20 +1,4 @@
 <app-menu />
-
 <main class="py-4 container">
-  <header class="p-4 mb-4 bg-light rounded-3">
-    <h1>{{appTitle}}</h1>
-    <p>Votre panier s'élève à {{total | currency}}</p>
-    <p class="mb-0"><a class="btn btn-primary btn-large">Voir mon panier</a></p>
-  </header>
-
-  <h2 class="h4">Catalogue</h2>
-  <router-outlet></router-outlet>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" *ngIf="hasProductsInStock; else emptyStock">
-    <ng-container *ngFor="let produit of products; let idx = index">
-      <app-product id="{{idx}}" *ngIf="produit.stock > 0" [product]="produit" (addToBasket)="ajouterAuPanier($event)" class="col" />
-    </ng-container>
-  </div>
-  <ng-template #emptyStock>
-    <p>Désolé, notre stock est vide !</p>
-  </ng-template>
+  <router-outlet />
 </main>

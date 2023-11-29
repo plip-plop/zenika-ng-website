@@ -8,18 +8,28 @@ import { appTitleProvider } from './app.token';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProductComponent } from './components/product/product.component';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { CatalogComponent } from './components/catalog/catalog.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ProductComponent
+    ProductComponent,
+    CatalogComponent,
+    BasketComponent,
+    ProductDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
+    AppRoutingModule,
   ],
   providers: [
     appTitleProvider,
