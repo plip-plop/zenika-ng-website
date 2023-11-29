@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 import { AppComponent } from './app.component';
+import { appTitleProvider } from './app.token';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProductComponent } from './components/product/product.component';
-import { APP_TITLE, appTitleProvider } from './app.token';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -13,10 +16,13 @@ import { APP_TITLE, appTitleProvider } from './app.token';
     ProductComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
   ],
   providers: [
-    appTitleProvider
+    appTitleProvider,
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }
   ],
   bootstrap: [AppComponent]
 })

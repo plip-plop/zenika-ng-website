@@ -1,8 +1,8 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { APP_TITLE } from './app.token';
 import { Product } from './components/product/product';
 import { BasketService } from './services/basket.service';
 import { CatalogService } from './services/catalog.service';
-import { APP_TITLE } from './app.token';
 
 @Component({
   selector: 'app-root',
