@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { appTitleProvider } from './app.token';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProductComponent } from './components/product/product.component';
+import { RouterModule } from '@angular/router';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -18,6 +19,7 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [
     appTitleProvider,

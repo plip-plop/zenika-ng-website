@@ -8,7 +8,7 @@
   </header>
 
   <h2 class="h4">Catalogue</h2>
-
+  <router-outlet></router-outlet>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" *ngIf="hasProductsInStock; else emptyStock">
     <ng-container *ngFor="let produit of products; let idx = index">
       <app-product id="{{idx}}" *ngIf="produit.stock > 0" [product]="produit" (addToBasket)="ajouterAuPanier($event)" class="col" />

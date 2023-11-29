@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
     return this.catalogService.hasProductsInStock;
   }
 
-  ajouterAuPanier(product: Product) {
-    product.stock--;
+  ajouterAuPanier({id}: Product) {
+    this.basketService.addItem(id).subscribe(
+      () => this.catalogService.decreaseStock(id)
+    );
   }
 }

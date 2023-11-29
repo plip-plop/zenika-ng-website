@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../components/product/product';
 import { BasketItem } from './basket-item';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,7 @@ import { BasketItem } from './basket-item';
 export class BasketService {
   private _items: BasketItem[] = [];
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   get items(): BasketItem[] {
     return this._items;
@@ -18,7 +21,11 @@ export class BasketService {
     return this._items.reduce((total, item) => total + item.price, 0);
   }
 
-  addItem(item: BasketItem): void {
-    this._items.push(item);
+
+  addItem(productId: string) : Observable<BasketItem> {
+    return this.httpClient.post<BasketItem>('http://localhost:8080/api/basket', { productId })
+    .pipe(
+      tap(item => this._items.push(item))
+    )
   }
 }
