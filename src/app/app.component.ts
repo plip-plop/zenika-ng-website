@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { Product } from './components/product/product';
+import { BasketService } from './services/basket.service';
+import { CatalogService } from './services/catalog.service';
+import { APP_TITLE } from './app.token';
 
 @Component({
   selector: 'app-root',
@@ -9,49 +12,24 @@ import { Product } from './components/product/product';
 export class AppComponent {
   title = 'zenika-ng-website';
 
-  total = 0;
+  get total() {
+    return this.basketService.total;
+  }
 
-  products: Product[] = [
-    {
-      "id": "welsch",
-      "title": "Coding the welsch",
-      "description": "Tee-shirt col rond - Homme",
-      "photo": "/assets/coding-the-welsch.jpg",
-      "price": 20,
-      "stock": 2
-    },
-    {
-      "id": "world",
-      "title": "Coding the world",
-      "description": "Tee-shirt col rond - Homme",
-      "photo": "/assets/coding-the-world.jpg",
-      "price": 18,
-      "stock": 2
-    },
-    {
-      "id": "vador",
-      "title": "Duck Vador",
-      "description": "Tee-shirt col rond - Femme",
-      "photo": "/assets/coding-the-stars.jpg",
-      "price": 21,
-      "stock": 2
-    },
-    {
-      "id": "snow",
-      "title": "Coding the snow",
-      "description": "Tee-shirt col rond - Femme",
-      "photo": "/assets/coding-the-snow.jpg",
-      "price": 19,
-      "stock": 2
-    }
-  ];
+  products: Product[] = this.catalogService.products;
+  // appTitle = inject(APP_TITLE);
+
+  constructor(
+    private readonly basketService: BasketService,
+    private readonly catalogService: CatalogService,
+    @Inject(APP_TITLE) public appTitle: string,
+  ) { }
 
   get hasProductsInStock(): boolean {
-    return this.products.some(({ stock }) => stock > 0);
+    return this.catalogService.hasProductsInStock;
   }
 
   ajouterAuPanier(product: Product) {
     product.stock--;
-    this.total += product.price;
   }
 }
