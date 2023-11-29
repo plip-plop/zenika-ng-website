@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../components/product/product';
 
@@ -5,42 +6,15 @@ import { Product } from '../components/product/product';
   providedIn: 'root'
 })
 export class CatalogService {
-  private _products: Product[] = [
-    {
-      "id": "welsch",
-      "title": "Coding the welsch",
-      "description": "Tee-shirt col rond - Homme",
-      "photo": "/assets/coding-the-welsch.jpg",
-      "price": 20,
-      "stock": 2
-    },
-    {
-      "id": "world",
-      "title": "Coding the world",
-      "description": "Tee-shirt col rond - Homme",
-      "photo": "/assets/coding-the-world.jpg",
-      "price": 18,
-      "stock": 2
-    },
-    {
-      "id": "vador",
-      "title": "Duck Vador",
-      "description": "Tee-shirt col rond - Femme",
-      "photo": "/assets/coding-the-stars.jpg",
-      "price": 21,
-      "stock": 2
-    },
-    {
-      "id": "snow",
-      "title": "Coding the snow",
-      "description": "Tee-shirt col rond - Femme",
-      "photo": "/assets/coding-the-snow.jpg",
-      "price": 19,
-      "stock": 2
-    }
-  ];
+  private _products: Product[] = [];
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  fetchProducts(): void {
+    this.httpClient.get<Product[]>('http://localhost:8080/api/products').subscribe(
+      products => this._products = products
+    )
+  }
 
   get products(): Product[] {
     return this._products;
