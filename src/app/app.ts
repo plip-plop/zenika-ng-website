@@ -46,7 +46,12 @@ export class App {
     },
   ];
 
+  get hasProductsInStock(): boolean {
+    return this.products.some((item) => item.stock > 0);
+  }
+
   ajouterAuPanier(produit: Product) {
     this.total += produit.price;
+    produit.stock -= 1;
   }
 }

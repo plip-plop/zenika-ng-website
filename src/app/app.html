@@ -37,24 +37,18 @@
   </header>
 
   <h2 class="h4">Catalogue</h2>
+  @if(hasProductsInStock) {
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    @for(produit of products; track produit.id) { @if(produit.stock > 0) {
     <app-product-card
-      [product]="products[0]"
+      [product]="produit"
       (addToBasket)="ajouterAuPanier($event)"
     />
-    <app-product-card
-      [product]="products[1]"
-      (addToBasket)="ajouterAuPanier($event)"
-    />
-    <app-product-card
-      [product]="products[2]"
-      (addToBasket)="ajouterAuPanier($event)"
-    />
-    <app-product-card
-      [product]="products[3]"
-      (addToBasket)="ajouterAuPanier($event)"
-    />
+    } }
   </div>
+  } @else {
+  <p>Désolé, c'est vide !</p>
+  }
 </main>
 <!-- End of Extract to "src/app/app.html" -->
