@@ -1,5 +1,10 @@
 <div class="col">
-  <div class="card h-100 text-center">
+  <!-- Directive : [ngClass]="{'text-bg-warning': product().stock <= 1}" -->
+  <!-- Privilégier le "class binding" -->
+  <div
+    class="card h-100 text-center"
+    [class.text-bg-warning]="product().stock <= 1"
+  >
     <img class="card-img-top" src="{{product().photo}}" alt="Product image" />
     <div class="card-header">
       <small>{{product().title}}</small>
@@ -9,7 +14,9 @@
         <a class="card-link">{{product().description}}</a>
       </h3>
       <p class="card-text">{{product().price}} €</p>
-      <button class="btn btn-primary" (click)="onClick()">Ajoutez au panier</button>
+      <button class="btn btn-primary" (click)="onClick()">
+        Ajoutez au panier
+      </button>
     </div>
   </div>
 </div>
