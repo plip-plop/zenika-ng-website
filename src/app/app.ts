@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Product } from './components/product';
 import { ProductCard } from './components/product-card/product-card';
 
@@ -9,9 +9,9 @@ import { ProductCard } from './components/product-card/product-card';
   styleUrl: './app.css',
 })
 export class App {
-  total = 0;
+  total = signal<number>(0);
 
-  products: Product[] = [
+  products = signal<Product[]>([
     {
       id: 'welsch',
       title: 'Coding the welsch',
@@ -44,14 +44,27 @@ export class App {
       price: 19,
       stock: 2,
     },
-  ];
+  ]);
 
-  get hasProductsInStock(): boolean {
-    return this.products.some((item) => item.stock > 0);
-  }
+  // get hasProductsInStock(): boolean {
+  //   return ;
+  // }
+
+  // hasProductsInStock = computed(() => this.products().some((item) => item.stock > 0));
+  hasProductsInStock = computed(() =>
+    this.products().some(({ stock }) => stock > 0)
+  );
 
   ajouterAuPanier(produit: Product) {
-    this.total += produit.price;
-    produit.stock -= 1;
+    this.products.update((products) =>
+      products.map((product) => {
+        if (produit.id === product.id) {
+          return { ...product, stock: product.stock - 1 };
+        }
+        return product;
+      })
+    );
+
+    this.total.update((total) => total + produit.price);
   }
 }

@@ -1,10 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { Product } from '../product';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
